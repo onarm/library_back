@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrbsfdx.library.mapper.EnterMapper">
+
+    <select id="list" resultType="Enter">
+        select * from enter
+    </select>
+
+    <insert id="save">
+        insert into enter( name,author,salary,count)
+        values (#{name},#{author},#{salary}, #{count})
+    </insert>
+
+    <delete id="deleteById">
+        delete from enter where id = #{id}
+    </delete>
+
+    <select id="listByCondition" resultType="Enter">
+        select * from enter
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%',#{name}, '%')
+            </if>
+            <if test="author != null and author != ''">
+                author like concat('%',#{author}, '%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>

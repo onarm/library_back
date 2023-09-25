@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrbsfdx.library.mapper.RechargeMapper">
+
+    <select id="list" resultType="Recharge">
+        select * from recharge
+    </select>
+
+    <insert id="save">
+        insert into recharge( username,previous_balance,after_balance)
+        values (#{username}, #{previousBalance}, #{afterBalance})
+    </insert>
+
+    <delete id="deleteById">
+        delete from recharge where id = #{id}
+    </delete>
+
+    <select id="listByCondition" resultType="Recharge">
+        select * from recharge
+        <where>
+            <if test="username != null and username != ''">
+                username like concat('%',#{username}, '%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>

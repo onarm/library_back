@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrbsfdx.library.mapper.PenaltyMapper">
+
+    <select id="list" resultType="Penalty">
+        select * from penalty
+    </select>
+
+    <insert id="save">
+        insert into penalty( name,username,phone,previous_balance,penalty,after_balance)
+        values (#{name},#{username},#{phone}, #{previousBalance},#{penalty}, #{afterBalance})
+    </insert>
+
+    <delete id="deleteById">
+        delete from penalty where id = #{id}
+    </delete>
+
+    <select id="listByCondition" resultType="Penalty">
+        select * from penalty
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%',#{name}, '%')
+            </if>
+            <if test="username != null and username != ''">
+                username like concat('%',#{username}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                phone like concat('%',#{phone}, '%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>
